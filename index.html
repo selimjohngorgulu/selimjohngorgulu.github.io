@@ -3,728 +3,752 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#0a0e13;
-    --bg-elevated:#121820;
-    --bg-elevated-2:#161d26;
-    --border:#232d38;
-    --border-soft:#1a222c;
-    --text:#e9edf1;
-    --text-muted:#8fa0ac;
-    --text-faint:#5c6d78;
-    --accent:#d99149;
-    --accent-strong:#e8a25e;
-    --accent-soft:rgba(217,145,73,0.12);
-    --teal:#4fb3a0;
-    --teal-soft:rgba(79,179,160,0.12);
-    --font-display:'Archivo', system-ui, sans-serif;
-    --font-body:'IBM Plex Sans', system-ui, sans-serif;
-    --font-mono:'IBM Plex Mono', ui-monospace, monospace;
-  }
+:root{
+--bg:#0a0e13;
+--bg-elevated:#121820;
+--bg-elevated-2:#161d26;
+--border:#232d38;
+--border-soft:#1a222c;
+--text:#e9edf1;
+--text-muted:#8fa0ac;
+--text-faint:#5c6d78;
+--accent:#d99149;
+--accent-strong:#e8a25e;
+--accent-soft:rgba(217,145,73,0.12);
+--teal:#4fb3a0;
+--teal-soft:rgba(79,179,160,0.12);
+--font-display:'Archivo', system-ui, sans-serif;
+--font-body:'IBM Plex Sans', system-ui, sans-serif;
+--font-mono:'IBM Plex Mono', ui-monospace, monospace;
+}
 
-  *{box-sizing:border-box; margin:0; padding:0;}
-  html{scroll-behavior:smooth;}
-  body{
-    background:var(--bg);
-    color:var(--text);
-    font-family:var(--font-body);
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-  }
-  @media (prefers-reduced-motion: reduce){
-    html{scroll-behavior:auto;}
-    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
-  }
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+background:var(--bg);
+color:var(--text);
+font-family:var(--font-body);
+line-height:1.6;
+-webkit-font-smoothing:antialiased;
+}
+@media (prefers-reduced-motion: reduce){
+html{scroll-behavior:auto;}
+*{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+}
 
-  img{max-width:100%;}
-  a{color:inherit;}
-  section{padding:120px 32px; position:relative;}
-  .wrap{max-width:1040px; margin:0 auto; position:relative;}
-  .narrow{max-width:760px;}
+img{max-width:100%;}
+a{color:inherit;}
+section{padding:120px 32px; position:relative;}
+.wrap{max-width:1040px; margin:0 auto; position:relative;}
+.narrow{max-width:760px;}
 
-  h1,h2,h3{font-family:var(--font-display); text-wrap:balance; letter-spacing:-0.01em;}
+h1,h2,h3{font-family:var(--font-display); text-wrap:balance; letter-spacing:-0.01em;}
 
-  .eyebrow{
-    font-family:var(--font-mono);
-    font-size:12px;
-    letter-spacing:0.14em;
-    text-transform:uppercase;
-    color:var(--accent);
-    display:flex;
-    align-items:center;
-    gap:10px;
-    margin-bottom:18px;
-  }
-  .eyebrow::before{
-    content:"";
-    width:22px; height:1px;
-    background:var(--accent);
-    display:inline-block;
-  }
+.eyebrow{
+font-family:var(--font-mono);
+font-size:12px;
+letter-spacing:0.14em;
+text-transform:uppercase;
+color:var(--accent);
+display:flex;
+align-items:center;
+gap:10px;
+margin-bottom:18px;
+}
+.eyebrow::before{
+content:"";
+width:22px; height:1px;
+background:var(--accent);
+display:inline-block;
+}
 
-  .section-title{
-    font-size:clamp(28px, 3.4vw, 40px);
-    font-weight:700;
-    color:var(--text);
-    margin-bottom:8px;
-  }
-  .section-sub{
-    color:var(--text-muted);
-    font-size:16px;
-    max-width:560px;
-    margin-bottom:56px;
-  }
+.section-title{
+font-size:clamp(28px, 3.4vw, 40px);
+font-weight:700;
+color:var(--text);
+margin-bottom:8px;
+}
+.section-sub{
+color:var(--text-muted);
+font-size:16px;
+max-width:560px;
+margin-bottom:56px;
+}
 
-  /* ---------- NAV ---------- */
-  nav{
-    position:fixed; top:0; left:0; right:0; z-index:100;
-    display:flex; align-items:center; justify-content:space-between;
-    padding:20px 32px;
-    background:rgba(10,14,19,0.82);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--border-soft);
-  }
-  .nav-inner{max-width:1180px; margin:0 auto; width:100%; display:flex; align-items:center; justify-content:space-between; gap:24px;}
-  .logo{
-    font-family:var(--font-display);
-    font-weight:800;
-    font-size:17px;
-    letter-spacing:0.02em;
-    display:flex; align-items:center; gap:9px;
-    flex:none; white-space:nowrap;
-  }
-  .logo-mark{
-    width:30px; height:30px;
-    background:linear-gradient(145deg, var(--accent), var(--teal));
-    clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    display:flex; align-items:center; justify-content:center;
-    font-family:var(--font-mono); font-size:11px; font-weight:700; color:#0a0e13;
-  }
-  .nav-links{display:flex; gap:22px; list-style:none; flex:1; justify-content:center;}
-  .nav-links a{
-    font-size:13.5px; color:var(--text-muted); text-decoration:none;
-    font-weight:500; transition:color .15s ease; position:relative;
-    white-space:nowrap;
-  }
-  .nav-links a:hover, .nav-links a:focus-visible{color:var(--text);}
-  .nav-links a.active{color:var(--accent);}
-  .nav-cta{
-    font-family:var(--font-mono); font-size:12px;
-    color:var(--teal); border:1px solid rgba(79,179,160,0.35);
-    background:var(--teal-soft);
-    padding:7px 14px; border-radius:100px;
-    display:flex; align-items:center; gap:7px;
-    flex:none; white-space:nowrap;
-  }
-  .nav-cta .dot{width:6px; height:6px; border-radius:50%; background:var(--teal); box-shadow:0 0 8px var(--teal);}
-  .nav-toggle{display:none;}
+/* ---------- NAV ---------- */
+nav{
+position:fixed; top:0; left:0; right:0; z-index:100;
+display:flex; align-items:center; justify-content:space-between;
+padding:20px 32px;
+background:rgba(10,14,19,0.82);
+backdrop-filter:blur(10px);
+border-bottom:1px solid var(--border-soft);
+}
+.nav-inner{max-width:1180px; margin:0 auto; width:100%; display:flex; align-items:center; justify-content:space-between; gap:24px;}
+.logo{
+font-family:var(--font-display);
+font-weight:800;
+font-size:17px;
+letter-spacing:0.02em;
+display:flex; align-items:center; gap:9px;
+flex:none; white-space:nowrap;
+}
+.logo-mark{
+width:30px; height:30px;
+background:linear-gradient(145deg, var(--accent), var(--teal));
+clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+display:flex; align-items:center; justify-content:center;
+font-family:var(--font-mono); font-size:11px; font-weight:700; color:#0a0e13;
+}
+.nav-links{display:flex; gap:22px; list-style:none; flex:1; justify-content:center;}
+.nav-links a{
+font-size:13.5px; color:var(--text-muted); text-decoration:none;
+font-weight:500; transition:color .15s ease; position:relative;
+white-space:nowrap;
+}
+.nav-links a:hover, .nav-links a:focus-visible{color:var(--text);}
+.nav-links a.active{color:var(--accent);}
+.nav-cta{
+font-family:var(--font-mono); font-size:12px;
+color:var(--teal); border:1px solid rgba(79,179,160,0.35);
+background:var(--teal-soft);
+padding:7px 14px; border-radius:100px;
+display:flex; align-items:center; gap:7px;
+flex:none; white-space:nowrap;
+}
+.nav-cta .dot{width:6px; height:6px; border-radius:50%; background:var(--teal); box-shadow:0 0 8px var(--teal);}
+.nav-toggle{display:none;}
 
-  @media (max-width: 860px){
-    .nav-links{display:none;}
-    .nav-cta{display:none;}
-  }
+@media (max-width: 860px){
+.nav-links{display:none;}
+.nav-cta{display:none;}
+}
 
-  /* ---------- HERO ---------- */
-  .hero{
-    padding:180px 32px 120px;
-    min-height:92vh;
-    display:flex; align-items:center;
-    position:relative;
-    overflow:hidden;
-  }
-  #netCanvas{
-    position:absolute; inset:0; width:100%; height:100%;
-    opacity:0.55;
-  }
-  .hero .wrap{
-    display:grid; grid-template-columns:1.15fr 0.85fr; gap:60px; align-items:center;
-  }
-  .hero-name{
-    font-size:clamp(40px, 6.2vw, 74px);
-    font-weight:800;
-    line-height:1.02;
-    margin:10px 0 22px;
-  }
-  .hero-role{
-    font-family:var(--font-mono);
-    font-size:16px;
-    color:var(--teal);
-    margin-bottom:22px;
-  }
-  .hero-tagline{
-    color:var(--text-muted);
-    font-size:17px;
-    max-width:480px;
-    margin-bottom:36px;
-  }
-  .btn-row{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:34px;}
-  .btn{
-    font-family:var(--font-body);
-    font-weight:600; font-size:14.5px;
-    padding:13px 26px;
-    border-radius:8px;
-    text-decoration:none;
-    cursor:pointer;
-    display:inline-flex; align-items:center; gap:8px;
-    transition:transform .15s ease, border-color .15s ease, background .15s ease;
-    border:1px solid transparent;
-  }
-  .btn-primary{
-    background:var(--accent);
-    color:#151009;
-  }
-  .btn-primary:hover{transform:translateY(-2px); background:var(--accent-strong);}
-  .btn-secondary{
-    background:transparent;
-    border-color:var(--border);
-    color:var(--text);
-  }
-  .btn-secondary:hover{border-color:var(--text-muted); transform:translateY(-2px);}
+/* ---------- HERO ---------- */
+.hero{
+padding:180px 32px 120px;
+min-height:92vh;
+display:flex; align-items:center;
+position:relative;
+overflow:hidden;
+}
+#netCanvas{
+position:absolute; inset:0; width:100%; height:100%;
+opacity:0.55;
+}
+.hero .wrap{
+display:grid; grid-template-columns:1.15fr 0.85fr; gap:60px; align-items:center;
+}
+.hero-name{
+font-size:clamp(40px, 6.2vw, 74px);
+font-weight:800;
+line-height:1.02;
+margin:10px 0 22px;
+}
+.hero-role{
+font-family:var(--font-mono);
+font-size:16px;
+color:var(--teal);
+margin-bottom:22px;
+}
+.hero-tagline{
+color:var(--text-muted);
+font-size:17px;
+max-width:480px;
+margin-bottom:36px;
+}
+.btn-row{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:34px;}
+.btn{
+font-family:var(--font-body);
+font-weight:600; font-size:14.5px;
+padding:13px 26px;
+border-radius:8px;
+text-decoration:none;
+cursor:pointer;
+display:inline-flex; align-items:center; gap:8px;
+transition:transform .15s ease, border-color .15s ease, background .15s ease;
+border:1px solid transparent;
+}
+.btn-primary{
+background:var(--accent);
+color:#151009;
+}
+.btn-primary:hover{transform:translateY(-2px); background:var(--accent-strong);}
+.btn-secondary{
+background:transparent;
+border-color:var(--border);
+color:var(--text);
+}
+.btn-secondary:hover{border-color:var(--text-muted); transform:translateY(-2px);}
 
-  .pill-row{display:flex; flex-wrap:wrap; gap:9px;}
-  .pill{
-    font-family:var(--font-mono);
-    font-size:12px;
-    color:var(--text-muted);
-    border:1px solid var(--border);
-    background:var(--bg-elevated);
-    padding:6px 13px;
-    border-radius:100px;
-  }
+.pill-row{display:flex; flex-wrap:wrap; gap:9px;}
+.pill{
+font-family:var(--font-mono);
+font-size:12px;
+color:var(--text-muted);
+border:1px solid var(--border);
+background:var(--bg-elevated);
+padding:6px 13px;
+border-radius:100px;
+}
 
-  .hero-visual{display:flex; justify-content:center; align-items:center; position:relative;}
-  .hex-frame{
-    width:260px; height:260px;
-    position:relative;
-    display:flex; align-items:center; justify-content:center;
-  }
-  .hex-frame::before{
-    content:"";
-    position:absolute; inset:0;
-    background:conic-gradient(from 180deg, var(--accent), var(--teal), var(--accent));
-    clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    filter:blur(0.5px);
-  }
-  .hex-inner{
-    position:absolute; inset:4px;
-    background:var(--bg-elevated);
-    clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    display:flex; align-items:center; justify-content:center;
-    flex-direction:column;
-  }
-  .hex-initials{
-    font-family:var(--font-display);
-    font-weight:800;
-    font-size:56px;
-    background:linear-gradient(135deg, var(--accent-strong), var(--teal));
-    -webkit-background-clip:text; background-clip:text; color:transparent;
-  }
-  .hex-caption{font-family:var(--font-mono); font-size:11px; color:var(--text-faint); letter-spacing:0.08em; margin-top:6px;}
-  .status-chip{
-    position:absolute; bottom:6px; right:-6px;
-    background:var(--bg-elevated-2); border:1px solid var(--border);
-    border-radius:100px; padding:7px 12px 7px 9px;
-    display:flex; align-items:center; gap:7px;
-    font-family:var(--font-mono); font-size:11px; color:var(--teal);
-  }
-  .status-chip .dot{width:6px; height:6px; border-radius:50%; background:var(--teal); box-shadow:0 0 8px var(--teal); animation:pulse 2.2s ease-in-out infinite;}
-  @keyframes pulse{0%,100%{opacity:1;} 50%{opacity:0.4;}}
+.hero-visual{display:flex; justify-content:center; align-items:center; position:relative;}
+.hex-frame{
+width:260px; height:260px;
+position:relative;
+display:flex; align-items:center; justify-content:center;
+}
+.hex-frame::before{
+content:"";
+position:absolute; inset:0;
+background:conic-gradient(from 180deg, var(--accent), var(--teal), var(--accent));
+clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+filter:blur(0.5px);
+}
+.hex-inner{
+position:absolute; inset:4px;
+background:var(--bg-elevated);
+clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+display:flex; align-items:center; justify-content:center;
+flex-direction:column;
+}
+.hex-initials{
+font-family:var(--font-display);
+font-weight:800;
+font-size:56px;
+background:linear-gradient(135deg, var(--accent-strong), var(--teal));
+-webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.hex-caption{font-family:var(--font-mono); font-size:11px; color:var(--text-faint); letter-spacing:0.08em; margin-top:6px;}
+.status-chip{
+position:absolute; bottom:6px; right:-6px;
+background:var(--bg-elevated-2); border:1px solid var(--border);
+border-radius:100px; padding:7px 12px 7px 9px;
+display:flex; align-items:center; gap:7px;
+font-family:var(--font-mono); font-size:11px; color:var(--teal);
+}
+.status-chip .dot{width:6px; height:6px; border-radius:50%; background:var(--teal); box-shadow:0 0 8px var(--teal); animation:pulse 2.2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;} 50%{opacity:0.4;}}
 
-  @media (max-width: 860px){
-    .hero .wrap{grid-template-columns:1fr; text-align:left;}
-    .hero-visual{order:-1; margin-bottom:20px;}
-    .hex-frame{width:180px; height:180px;}
-    .hex-initials{font-size:38px;}
-  }
+@media (max-width: 860px){
+.hero .wrap{grid-template-columns:1fr; text-align:left;}
+.hero-visual{order:-1; margin-bottom:20px;}
+.hex-frame{width:180px; height:180px;}
+.hex-initials{font-size:38px;}
+}
 
-  /* ---------- ABOUT / STATS ---------- */
-  .about-grid{display:grid; grid-template-columns:1fr; gap:14px;}
-  .about-text{color:var(--text-muted); font-size:16.5px; max-width:680px;}
-  .about-text p{margin-bottom:16px;}
-  .about-text strong{color:var(--text); font-weight:600;}
-  .stat-grid{
-    display:grid; grid-template-columns:repeat(4, 1fr); gap:1px;
-    background:var(--border); border:1px solid var(--border);
-    margin-top:56px; border-radius:12px; overflow:hidden;
-  }
-  .stat{background:var(--bg-elevated); padding:28px 20px; text-align:left;}
-  .stat-num{
-    font-family:var(--font-display); font-weight:800;
-    font-size:clamp(24px,2.6vw,32px);
-    color:var(--accent-strong);
-    font-variant-numeric:tabular-nums;
-  }
-  .stat-label{font-size:12.5px; color:var(--text-muted); margin-top:6px;}
-  @media (max-width: 700px){ .stat-grid{grid-template-columns:1fr 1fr;} }
+/* ---------- ABOUT / STATS ---------- */
+.about-grid{display:grid; grid-template-columns:1fr; gap:14px;}
+.about-text{color:var(--text-muted); font-size:16.5px; max-width:680px;}
+.about-text p{margin-bottom:16px;}
+.about-text strong{color:var(--text); font-weight:600;}
+.stat-grid{
+display:grid; grid-template-columns:repeat(4, 1fr); gap:1px;
+background:var(--border); border:1px solid var(--border);
+margin-top:56px; border-radius:12px; overflow:hidden;
+}
+.stat{background:var(--bg-elevated); padding:28px 20px; text-align:left;}
+.stat-num{
+font-family:var(--font-display); font-weight:800;
+font-size:clamp(24px,2.6vw,32px);
+color:var(--accent-strong);
+font-variant-numeric:tabular-nums;
+}
+.stat-label{font-size:12.5px; color:var(--text-muted); margin-top:6px;}
+@media (max-width: 700px){ .stat-grid{grid-template-columns:1fr 1fr;} }
 
-  /* ---------- EDUCATION ---------- */
-  .edu-card{
-    background:var(--bg-elevated);
-    border:1px solid var(--border);
-    border-radius:12px;
-    padding:36px;
-    display:grid;
-    grid-template-columns:auto 1fr auto;
-    gap:28px;
-    align-items:start;
-    position:relative;
-  }
-  .edu-badge{
-    width:56px; height:56px; border-radius:10px;
-    background:var(--accent-soft); border:1px solid rgba(217,145,73,0.3);
-    display:flex; align-items:center; justify-content:center;
-    font-family:var(--font-mono); font-weight:600; font-size:13px; color:var(--accent-strong);
-  }
-  .edu-card h3{font-size:20px; margin-bottom:4px;}
-  .edu-degree{color:var(--teal); font-size:14.5px; font-weight:500; margin-bottom:14px;}
-  .edu-meta{font-family:var(--font-mono); font-size:12.5px; color:var(--text-faint); text-align:right; white-space:nowrap;}
-  .edu-note{color:var(--text-muted); font-size:14.5px; margin-bottom:16px; grid-column:2;}
-  .tag-row{display:flex; flex-wrap:wrap; gap:8px; grid-column:2;}
-  .tag{
-    font-family:var(--font-mono); font-size:11.5px;
-    border:1px solid var(--border-soft); background:var(--bg-elevated-2);
-    color:var(--text-muted); padding:5px 11px; border-radius:6px;
-  }
-  @media (max-width:700px){
-    .edu-card{grid-template-columns:1fr; padding:26px;}
-    .edu-meta{text-align:left;}
-    .edu-note, .tag-row{grid-column:1;}
-  }
+/* ---------- EDUCATION ---------- */
+.edu-card{
+background:var(--bg-elevated);
+border:1px solid var(--border);
+border-radius:12px;
+padding:36px;
+display:grid;
+grid-template-columns:auto 1fr auto;
+gap:28px;
+align-items:start;
+position:relative;
+}
+.edu-badge{
+width:56px; height:56px; border-radius:10px;
+background:var(--accent-soft); border:1px solid rgba(217,145,73,0.3);
+display:flex; align-items:center; justify-content:center;
+font-family:var(--font-mono); font-weight:600; font-size:13px; color:var(--accent-strong);
+}
+.edu-card h3{font-size:20px; margin-bottom:4px;}
+.edu-degree{color:var(--teal); font-size:14.5px; font-weight:500; margin-bottom:14px;}
+.edu-meta{font-family:var(--font-mono); font-size:12.5px; color:var(--text-faint); text-align:right; white-space:nowrap;}
+.edu-note{color:var(--text-muted); font-size:14.5px; margin-bottom:16px; grid-column:2;}
+.tag-row{display:flex; flex-wrap:wrap; gap:8px; grid-column:2;}
+.tag{
+font-family:var(--font-mono); font-size:11.5px;
+border:1px solid var(--border-soft); background:var(--bg-elevated-2);
+color:var(--text-muted); padding:5px 11px; border-radius:6px;
+}
+@media (max-width:700px){
+.edu-card{grid-template-columns:1fr; padding:26px;}
+.edu-meta{text-align:left;}
+.edu-note, .tag-row{grid-column:1;}
+}
 
-  /* ---------- EXPERIENCE TIMELINE ---------- */
-  .timeline{position:relative; padding-left:36px;}
-  .timeline::before{
-    content:""; position:absolute; left:6px; top:6px; bottom:6px;
-    width:1px; background:linear-gradient(var(--accent), var(--border) 85%);
-  }
-  .t-item{position:relative; padding-bottom:52px;}
-  .t-item:last-child{padding-bottom:0;}
-  .t-node{
-    position:absolute; left:-36px; top:4px;
-    width:13px; height:13px; border-radius:50%;
-    background:var(--bg); border:2px solid var(--accent);
-  }
-  .t-item.current .t-node{background:var(--accent); box-shadow:0 0 0 4px var(--accent-soft);}
-  .t-head{display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:8px; margin-bottom:4px;}
-  .t-role{font-size:19px; font-weight:700; font-family:var(--font-display);}
-  .t-date{font-family:var(--font-mono); font-size:12.5px; color:var(--text-faint);}
-  .t-org{color:var(--teal); font-size:14.5px; font-weight:500; margin-bottom:14px;}
-  .t-org span{color:var(--text-faint); font-weight:400;}
-  .t-item ul{list-style:none; color:var(--text-muted); font-size:15px; margin-bottom:16px;}
-  .t-item li{position:relative; padding-left:18px; margin-bottom:9px;}
-  .t-item li::before{content:"–"; position:absolute; left:0; color:var(--text-faint);}
-  .t-item li strong{color:var(--text); font-weight:600;}
+/* ---------- EXPERIENCE TIMELINE ---------- */
+.timeline{position:relative; padding-left:36px;}
+.timeline::before{
+content:""; position:absolute; left:6px; top:6px; bottom:6px;
+width:1px; background:linear-gradient(var(--accent), var(--border) 85%);
+}
+.t-item{position:relative; padding-bottom:52px;}
+.t-item:last-child{padding-bottom:0;}
+.t-node{
+position:absolute; left:-36px; top:4px;
+width:13px; height:13px; border-radius:50%;
+background:var(--bg); border:2px solid var(--accent);
+}
+.t-item.current .t-node{background:var(--accent); box-shadow:0 0 0 4px var(--accent-soft);}
+.t-head{display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:8px; margin-bottom:4px;}
+.t-role{font-size:19px; font-weight:700; font-family:var(--font-display);}
+.t-date{font-family:var(--font-mono); font-size:12.5px; color:var(--text-faint);}
+.t-org{color:var(--teal); font-size:14.5px; font-weight:500; margin-bottom:14px;}
+.t-org span{color:var(--text-faint); font-weight:400;}
+.t-item ul{list-style:none; color:var(--text-muted); font-size:15px; margin-bottom:16px;}
+.t-item li{position:relative; padding-left:18px; margin-bottom:9px;}
+.t-item li::before{content:"–"; position:absolute; left:0; color:var(--text-faint);}
+.t-item li strong{color:var(--text); font-weight:600;}
 
-  /* ---------- SKILLS ---------- */
-  .skill-grid{display:grid; grid-template-columns:repeat(2, 1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:12px; overflow:hidden;}
-  .skill-cat{background:var(--bg-elevated); padding:30px 32px;}
-  .skill-cat-title{
-    font-family:var(--font-mono); font-size:12px; letter-spacing:0.1em;
-    color:var(--accent); text-transform:uppercase; margin-bottom:16px;
-  }
-  .skill-list{display:flex; flex-wrap:wrap; gap:8px;}
-  .skill-chip{
-    font-size:13.5px; color:var(--text-muted);
-    background:var(--bg-elevated-2); border:1px solid var(--border-soft);
-    padding:7px 13px; border-radius:7px;
-  }
-  @media (max-width:700px){ .skill-grid{grid-template-columns:1fr;} }
+/* ---------- SKILLS ---------- */
+.skill-grid{display:grid; grid-template-columns:repeat(2, 1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:12px; overflow:hidden;}
+.skill-cat{background:var(--bg-elevated); padding:30px 32px;}
+.skill-cat-title{
+font-family:var(--font-mono); font-size:12px; letter-spacing:0.1em;
+color:var(--accent); text-transform:uppercase; margin-bottom:16px;
+}
+.skill-list{display:flex; flex-wrap:wrap; gap:8px;}
+.skill-chip{
+font-size:13.5px; color:var(--text-muted);
+background:var(--bg-elevated-2); border:1px solid var(--border-soft);
+padding:7px 13px; border-radius:7px;
+}
+@media (max-width:700px){ .skill-grid{grid-template-columns:1fr;} }
 
-  /* ---------- CERTIFICATIONS ---------- */
-  .cert-grid{display:grid; grid-template-columns:repeat(2, 1fr); gap:14px;}
-  .cert-card{
-    background:var(--bg-elevated); border:1px solid var(--border);
-    border-radius:10px; padding:20px 22px;
-    display:flex; gap:16px; align-items:flex-start;
-    transition:border-color .15s ease;
-  }
-  .cert-card:hover{border-color:rgba(217,145,73,0.4);}
-  .cert-mark{
-    font-family:var(--font-mono); font-weight:600; font-size:12px;
-    width:38px; height:38px; border-radius:8px; flex:none;
-    display:flex; align-items:center; justify-content:center;
-    background:var(--teal-soft); color:var(--teal);
-    border:1px solid rgba(79,179,160,0.3);
-  }
-  .cert-name{font-size:15px; font-weight:600; margin-bottom:3px;}
-  .cert-issuer{font-size:13px; color:var(--text-faint);}
-  @media (max-width:700px){ .cert-grid{grid-template-columns:1fr;} }
+/* ---------- CERTIFICATIONS ---------- */
+.cert-grid{display:grid; grid-template-columns:repeat(2, 1fr); gap:14px;}
+.cert-card{
+background:var(--bg-elevated); border:1px solid var(--border);
+border-radius:10px; padding:20px 22px;
+display:flex; gap:16px; align-items:flex-start;
+transition:border-color .15s ease;
+}
+.cert-card:hover{border-color:rgba(217,145,73,0.4);}
+.cert-mark{
+font-family:var(--font-mono); font-weight:600; font-size:12px;
+width:38px; height:38px; border-radius:8px; flex:none;
+display:flex; align-items:center; justify-content:center;
+background:var(--teal-soft); color:var(--teal);
+border:1px solid rgba(79,179,160,0.3);
+}
+.cert-name{font-size:15px; font-weight:600; margin-bottom:3px;}
+.cert-issuer{font-size:13px; color:var(--text-faint);}
+@media (max-width:700px){ .cert-grid{grid-template-columns:1fr;} }
 
-  /* ---------- BEYOND THE DESK ---------- */
-  .beyond-grid{display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:14px;}
-  .beyond-card{
-    background:var(--bg-elevated); border:1px solid var(--border); border-radius:12px;
-    padding:26px; position:relative; overflow:hidden;
-  }
-  .beyond-card::after{
-    content:""; position:absolute; top:0; right:0; width:34px; height:34px;
-    background:var(--accent); opacity:0.08;
-    clip-path:polygon(100% 0, 0 0, 100% 100%);
-  }
-  .beyond-org{font-weight:700; font-size:16.5px; margin-bottom:2px;}
-  .beyond-role{font-family:var(--font-mono); font-size:12px; color:var(--teal); margin-bottom:14px;}
-  .beyond-card p{color:var(--text-muted); font-size:14px; margin-bottom:8px;}
-  .beyond-date{font-family:var(--font-mono); font-size:11px; color:var(--text-faint); margin-top:14px; display:block;}
-  @media (max-width:860px){ .beyond-grid{grid-template-columns:1fr;} }
+/* ---------- BEYOND THE DESK ---------- */
+.beyond-grid{display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:14px;}
+.beyond-card{
+background:var(--bg-elevated); border:1px solid var(--border); border-radius:12px;
+padding:26px; position:relative; overflow:hidden;
+}
+.beyond-card::after{
+content:""; position:absolute; top:0; right:0; width:34px; height:34px;
+background:var(--accent); opacity:0.08;
+clip-path:polygon(100% 0, 0 0, 100% 100%);
+}
+.beyond-org{font-weight:700; font-size:16.5px; margin-bottom:2px;}
+.beyond-role{font-family:var(--font-mono); font-size:12px; color:var(--teal); margin-bottom:14px;}
+.beyond-card p{color:var(--text-muted); font-size:14px; margin-bottom:8px;}
+.beyond-date{font-family:var(--font-mono); font-size:11px; color:var(--text-faint); margin-top:14px; display:block;}
+@media (max-width:860px){ .beyond-grid{grid-template-columns:1fr;} }
 
-  /* ---------- CONTACT ---------- */
-  .contact-section{text-align:center;}
-  .contact-section .section-sub{margin-left:auto; margin-right:auto;}
-  .contact-methods{
-    display:flex; justify-content:center; gap:14px; flex-wrap:wrap; margin-top:38px;
-  }
-  .contact-card{
-    background:var(--bg-elevated); border:1px solid var(--border); border-radius:10px;
-    padding:18px 26px; text-decoration:none; min-width:190px;
-    transition:border-color .15s ease, transform .15s ease;
-  }
-  .contact-card:hover{border-color:var(--accent); transform:translateY(-2px);}
-  .contact-label{font-family:var(--font-mono); font-size:11px; color:var(--text-faint); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:6px;}
-  .contact-value{font-size:14.5px; font-weight:600; color:var(--text);}
+/* ---------- CONTACT ---------- */
+.contact-section{text-align:center;}
+.contact-section .section-sub{margin-left:auto; margin-right:auto;}
+.contact-layout{
+display:grid; grid-template-columns:1fr 1fr; gap:52px;
+text-align:left; margin-top:48px;
+}
+.contact-info p{color:var(--text-muted); font-size:15.5px; margin-bottom:26px; max-width:420px;}
+.contact-row{
+display:flex; align-items:center; gap:14px;
+padding:14px 0; text-decoration:none; color:var(--text);
+font-size:14.5px; border-bottom:1px solid var(--border-soft);
+transition:color .15s ease;
+}
+.contact-row:hover{color:var(--accent-strong);}
+.contact-row:last-child{border-bottom:none;}
+.contact-icon{
+width:34px; height:34px; border-radius:8px; flex:none;
+background:var(--accent-soft); color:var(--accent-strong);
+display:flex; align-items:center; justify-content:center;
+font-family:var(--font-mono); font-size:12px; font-weight:700;
+}
+.contact-form{display:flex; flex-direction:column; gap:14px;}
+.contact-form input, .contact-form textarea{
+width:100%; background:var(--bg-elevated); border:1px solid var(--border);
+border-radius:8px; padding:13px 16px; color:var(--text);
+font-family:var(--font-body); font-size:14.5px; resize:vertical;
+}
+.contact-form input::placeholder, .contact-form textarea::placeholder{color:var(--text-faint);}
+.contact-form input:focus, .contact-form textarea:focus{outline:none; border-color:var(--accent);}
+.contact-form button{align-self:flex-start; border:none;}
+@media (max-width:760px){ .contact-layout{grid-template-columns:1fr;} }
 
-  footer{
-    border-top:1px solid var(--border-soft);
-    padding:36px 32px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;
-  }
-  .footer-tag{font-size:13px; color:var(--text-faint);}
-  .footer-copy{font-family:var(--font-mono); font-size:12px; color:var(--text-faint);}
+footer{
+border-top:1px solid var(--border-soft);
+padding:36px 32px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;
+}
+.footer-tag{font-size:13px; color:var(--text-faint);}
+.footer-copy{font-family:var(--font-mono); font-size:12px; color:var(--text-faint);}
 
-  .reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
-  .reveal.in{opacity:1; transform:translateY(0);}
+.reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
+.reveal.in{opacity:1; transform:translateY(0);}
 </style>
 
 <nav>
-  <div class="nav-inner">
-    <div class="logo"><span class="logo-mark">SG</span>Selimcan Gorgulu</div>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#about">About</a></li>
-      <li><a href="#education">Education</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#certifications">Certifications</a></li>
-      <li><a href="#beyond">Community</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-    <a href="#contact" class="nav-cta"><span class="dot"></span>Open to Opportunities</a>
-  </div>
+<div class="nav-inner">
+<div class="logo"><span class="logo-mark">SG</span>Selimcan Gorgulu</div>
+<ul class="nav-links" id="navLinks">
+<li><a href="#about">About</a></li>
+<li><a href="#education">Education</a></li>
+<li><a href="#experience">Experience</a></li>
+<li><a href="#skills">Skills</a></li>
+<li><a href="#certifications">Certifications</a></li>
+<li><a href="#beyond">Community</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+<a href="#contact" class="nav-cta"><span class="dot"></span>Open to Opportunities</a>
+</div>
 </nav>
 
 <section class="hero">
-  <canvas id="netCanvas"></canvas>
-  <div class="wrap">
-    <div>
-      <div class="eyebrow">Hi, I'm</div>
-      <h1 class="hero-name">Selimcan<br>Gorgulu</h1>
-      <div class="hero-role">IT Support Technician — Cybersecurity Student @ UT Dallas</div>
-      <p class="hero-tagline">Keeping 200+ students and staff online today, with a 95%+ first-contact resolution rate — while building toward a career defending the networks behind them.</p>
-      <div class="btn-row">
-        <a href="#contact" class="btn btn-primary">Get In Touch</a>
-        <a href="#experience" class="btn btn-secondary">See Experience</a>
-      </div>
-      <div class="pill-row">
-        <span class="pill">Network Security</span>
-        <span class="pill">Help Desk Support</span>
-        <span class="pill">Cybersecurity Fundamentals</span>
-        <span class="pill">AI Tools &amp; Prompting</span>
-      </div>
-    </div>
-    <div class="hero-visual">
-      <div class="hex-frame">
-        <div class="hex-inner">
-          <div class="hex-initials">SG</div>
-          <div class="hex-caption">ALLEN, TX</div>
-        </div>
-        <div class="status-chip"><span class="dot"></span>Available</div>
-      </div>
-    </div>
-  </div>
+<canvas id="netCanvas"></canvas>
+<div class="wrap">
+<div>
+<div class="eyebrow">Hi, I'm</div>
+<h1 class="hero-name">Selimcan<br>Gorgulu</h1>
+<div class="hero-role">IT Support Technician — Cybersecurity Student @ UT Dallas</div>
+<p class="hero-tagline">Keeping 200+ students and staff online today, with a 95%+ first-contact resolution rate — while building toward a career defending the networks behind them.</p>
+<div class="btn-row">
+<a href="#contact" class="btn btn-primary">Get In Touch</a>
+<a href="#experience" class="btn btn-secondary">See Experience</a>
+</div>
+<div class="pill-row">
+<span class="pill">Network Security</span>
+<span class="pill">Help Desk Support</span>
+<span class="pill">Cybersecurity Fundamentals</span>
+<span class="pill">AI Tools &amp; Prompting</span>
+</div>
+</div>
+<div class="hero-visual">
+<div class="hex-frame">
+<div class="hex-inner">
+<div class="hex-initials">SG</div>
+<div class="hex-caption">ALLEN, TX</div>
+</div>
+<div class="status-chip"><span class="dot"></span>Available</div>
+</div>
+</div>
+</div>
 </section>
 
 <section id="about">
-  <div class="wrap">
-    <div class="eyebrow">About</div>
-    <h2 class="section-title reveal">Support today. Security tomorrow.</h2>
-    <div class="about-grid reveal">
-      <div class="about-text">
-        <p>I'm a <strong>B.S. Cybersecurity</strong> candidate at the <strong>University of Texas at Dallas</strong>, expected to graduate in May 2027, and currently working as an <strong>IT Support Technician at Harmony Public Schools</strong> in Texas. Day to day, that means front-line troubleshooting for 200+ students and staff — diagnosing hardware failures, configuring network settings, and keeping school-wide IT infrastructure running.</p>
-        <p>My coursework in network security, operating systems, data communications, and digital forensics is sharpening the same instinct I already use on the help desk: find the root cause, explain it clearly to whoever's affected, and document it so it doesn't happen again. Outside of the classroom and the ticket queue, I mentor middle schoolers and organize cultural programming at a local Turkish community center — five years and counting.</p>
-      </div>
-      <div class="stat-grid">
-        <div class="stat"><div class="stat-num">200+</div><div class="stat-label">Students &amp; staff supported</div></div>
-        <div class="stat"><div class="stat-num">95%+</div><div class="stat-label">First-contact resolution rate</div></div>
-        <div class="stat"><div class="stat-num">30%</div><div class="stat-label">Fewer repeat support tickets</div></div>
-        <div class="stat"><div class="stat-num">5+</div><div class="stat-label">Years volunteering in community</div></div>
-      </div>
-    </div>
-  </div>
+<div class="wrap">
+<div class="eyebrow">About</div>
+<h2 class="section-title reveal">Support today. Security tomorrow.</h2>
+<div class="about-grid reveal">
+<div class="about-text">
+<p>I'm a <strong>B.S. Cybersecurity</strong> candidate at the <strong>University of Texas at Dallas</strong>, expected to graduate in May 2027, and currently working as an <strong>IT Support Technician at Harmony Public Schools</strong> in Texas. Day to day, that means front-line troubleshooting for 200+ students and staff — diagnosing hardware failures, configuring network settings, and keeping school-wide IT infrastructure running.</p>
+<p>My coursework in network security, operating systems, data communications, and digital forensics is sharpening the same instinct I already use on the help desk: find the root cause, explain it clearly to whoever's affected, and document it so it doesn't happen again. Outside of the classroom and the ticket queue, I mentor middle schoolers and organize cultural programming at a local Turkish community center — five years and counting.</p>
+</div>
+<div class="stat-grid">
+<div class="stat"><div class="stat-num">200+</div><div class="stat-label">Students &amp; staff supported</div></div>
+<div class="stat"><div class="stat-num">95%+</div><div class="stat-label">First-contact resolution rate</div></div>
+<div class="stat"><div class="stat-num">30%</div><div class="stat-label">Fewer repeat support tickets</div></div>
+<div class="stat"><div class="stat-num">5+</div><div class="stat-label">Years volunteering in community</div></div>
+</div>
+</div>
+</div>
 </section>
 
 <section id="education">
-  <div class="wrap">
-    <div class="eyebrow">Education</div>
-    <h2 class="section-title reveal">Academic Background</h2>
-    <p class="section-sub reveal">Building the theory behind the troubleshooting.</p>
-    <div class="edu-card reveal">
-      <div class="edu-badge">UTD</div>
-      <div>
-        <h3>University of Texas at Dallas</h3>
-        <div class="edu-degree">B.S. in Cybersecurity</div>
-        <p class="edu-note">Coursework in network security, operating systems, data communications, and digital forensics — with a focus on identifying, analyzing, and mitigating vulnerabilities across platforms.</p>
-        <div class="tag-row">
-          <span class="tag">Network Security</span>
-          <span class="tag">Operating Systems</span>
-          <span class="tag">Data Communications</span>
-          <span class="tag">Digital Forensics</span>
-        </div>
-      </div>
-      <div class="edu-meta">Expected May 2027<br>Richardson, TX</div>
-    </div>
-  </div>
+<div class="wrap">
+<div class="eyebrow">Education</div>
+<h2 class="section-title reveal">Academic Background</h2>
+<p class="section-sub reveal">Building the theory behind the troubleshooting.</p>
+<div class="edu-card reveal">
+<div class="edu-badge">UTD</div>
+<div>
+<h3>University of Texas at Dallas</h3>
+<div class="edu-degree">B.S. in Cybersecurity</div>
+<p class="edu-note">Coursework in network security, operating systems, data communications, and digital forensics — with a focus on identifying, analyzing, and mitigating vulnerabilities across platforms.</p>
+<div class="tag-row">
+<span class="tag">Network Security</span>
+<span class="tag">Operating Systems</span>
+<span class="tag">Data Communications</span>
+<span class="tag">Digital Forensics</span>
+</div>
+</div>
+<div class="edu-meta">Expected May 2027<br>Richardson, TX</div>
+</div>
+</div>
 </section>
 
 <section id="experience">
-  <div class="wrap">
-    <div class="eyebrow">Experience</div>
-    <h2 class="section-title reveal">Where I've Worked</h2>
-    <p class="section-sub reveal">From the warehouse floor to the help desk.</p>
-    <div class="timeline">
-      <div class="t-item current reveal">
-        <div class="t-node"></div>
-        <div class="t-head"><span class="t-role">IT Support Technician</span><span class="t-date">2023 – Present</span></div>
-        <div class="t-org">Harmony Public Schools <span>· Texas</span></div>
-        <ul>
-          <li>Delivered front-line technical support to <strong>200+ students and staff</strong>, resolving hardware, software, and network issues with a <strong>95%+ first-contact resolution rate</strong></li>
-          <li>Diagnosed and repaired device failures, configured network settings, and maintained school-wide IT infrastructure</li>
-          <li>Communicated complex technical solutions clearly to non-technical users across diverse backgrounds</li>
-          <li>Documented recurring issues and created step-by-step troubleshooting guides, <strong>reducing repeat support tickets by 30%</strong></li>
-        </ul>
-        <div class="tag-row">
-          <span class="tag">Technical Troubleshooting</span>
-          <span class="tag">Network Configuration</span>
-          <span class="tag">Documentation</span>
-        </div>
-      </div>
-      <div class="t-item reveal">
-        <div class="t-node"></div>
-        <div class="t-head"><span class="t-role">Online Order Manager &amp; Warehouse Associate</span><span class="t-date">May 2021 – May 2023</span></div>
-        <div class="t-org">Aviva <span>· Dallas, TX</span></div>
-        <ul>
-          <li>Processed high-volume customer orders and managed inventory records across a fast-moving warehouse environment</li>
-        </ul>
-        <div class="tag-row">
-          <span class="tag">Inventory Management</span>
-          <span class="tag">Order Processing</span>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="wrap">
+<div class="eyebrow">Experience</div>
+<h2 class="section-title reveal">Where I've Worked</h2>
+<p class="section-sub reveal">From the warehouse floor to the help desk.</p>
+<div class="timeline">
+<div class="t-item current reveal">
+<div class="t-node"></div>
+<div class="t-head"><span class="t-role">IT Support Technician</span><span class="t-date">2023 – Present</span></div>
+<div class="t-org">Harmony Public Schools <span>· Texas</span></div>
+<ul>
+<li>Delivered front-line technical support to <strong>200+ students and staff</strong>, resolving hardware, software, and network issues with a <strong>95%+ first-contact resolution rate</strong></li>
+<li>Diagnosed and repaired device failures, configured network settings, and maintained school-wide IT infrastructure</li>
+<li>Communicated complex technical solutions clearly to non-technical users across diverse backgrounds</li>
+<li>Documented recurring issues and created step-by-step troubleshooting guides, <strong>reducing repeat support tickets by 30%</strong></li>
+</ul>
+<div class="tag-row">
+<span class="tag">Technical Troubleshooting</span>
+<span class="tag">Network Configuration</span>
+<span class="tag">Documentation</span>
+</div>
+</div>
+<div class="t-item reveal">
+<div class="t-node"></div>
+<div class="t-head"><span class="t-role">Online Order Manager &amp; Warehouse Associate</span><span class="t-date">May 2021 – May 2023</span></div>
+<div class="t-org">Aviva <span>· Dallas, TX</span></div>
+<ul>
+<li>Processed high-volume customer orders and managed inventory records across a fast-moving warehouse environment</li>
+</ul>
+<div class="tag-row">
+<span class="tag">Inventory Management</span>
+<span class="tag">Order Processing</span>
+</div>
+</div>
+</div>
+</div>
 </section>
 
 <section id="skills">
-  <div class="wrap">
-    <div class="eyebrow">Skills</div>
-    <h2 class="section-title reveal">Technical Toolkit</h2>
-    <p class="section-sub reveal">What I bring to a ticket, a project, or a team.</p>
-    <div class="skill-grid reveal">
-      <div class="skill-cat">
-        <div class="skill-cat-title">IT &amp; Security</div>
-        <div class="skill-list">
-          <span class="skill-chip">Network Security</span>
-          <span class="skill-chip">Help Desk Support</span>
-          <span class="skill-chip">Technical Troubleshooting</span>
-          <span class="skill-chip">Cybersecurity Fundamentals</span>
-        </div>
-      </div>
-      <div class="skill-cat">
-        <div class="skill-cat-title">Communication</div>
-        <div class="skill-list">
-          <span class="skill-chip">Customer Service</span>
-          <span class="skill-chip">Active Listening</span>
-          <span class="skill-chip">Empathy &amp; Communication</span>
-          <span class="skill-chip">Problem Solving</span>
-        </div>
-      </div>
-      <div class="skill-cat">
-        <div class="skill-cat-title">AI &amp; Tools</div>
-        <div class="skill-list">
-          <span class="skill-chip">AI Tools &amp; Prompting</span>
-          <span class="skill-chip">Claude Code</span>
-          <span class="skill-chip">Adobe Photoshop</span>
-        </div>
-      </div>
-      <div class="skill-cat">
-        <div class="skill-cat-title">Languages</div>
-        <div class="skill-list">
-          <span class="skill-chip">English — Fluent</span>
-          <span class="skill-chip">Turkish — Native</span>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="wrap">
+<div class="eyebrow">Skills</div>
+<h2 class="section-title reveal" style="margin-bottom:48px;">My Arsenal</h2>
+<div class="skill-grid reveal">
+<div class="skill-cat">
+<div class="skill-cat-title">IT &amp; Security</div>
+<div class="skill-list">
+<span class="skill-chip">Network Security</span>
+<span class="skill-chip">Help Desk Support</span>
+<span class="skill-chip">Technical Troubleshooting</span>
+<span class="skill-chip">Cybersecurity Fundamentals</span>
+</div>
+</div>
+<div class="skill-cat">
+<div class="skill-cat-title">Communication</div>
+<div class="skill-list">
+<span class="skill-chip">Customer Service</span>
+<span class="skill-chip">Active Listening</span>
+<span class="skill-chip">Empathy &amp; Communication</span>
+<span class="skill-chip">Problem Solving</span>
+</div>
+</div>
+<div class="skill-cat">
+<div class="skill-cat-title">AI &amp; Tools</div>
+<div class="skill-list">
+<span class="skill-chip">AI Tools &amp; Prompting</span>
+<span class="skill-chip">Claude Code</span>
+<span class="skill-chip">Adobe Photoshop</span>
+</div>
+</div>
+<div class="skill-cat">
+<div class="skill-cat-title">Languages &amp; Compliance</div>
+<div class="skill-list">
+<span class="skill-chip">Python</span>
+<span class="skill-chip">PowerShell</span>
+<span class="skill-chip">C++</span>
+<span class="skill-chip">Java</span>
+</div>
+</div>
+</div>
+</div>
 </section>
 
 <section id="certifications">
-  <div class="wrap">
-    <div class="eyebrow">Certifications</div>
-    <h2 class="section-title reveal">Achievements &amp; Certifications</h2>
-    <p class="section-sub reveal">Credentials earned alongside the day job and the degree.</p>
-    <div class="cert-grid reveal">
-      <div class="cert-card"><div class="cert-mark">Go</div><div><div class="cert-name">Google AI Professional Certificate</div><div class="cert-issuer">Google (Coursera)</div></div></div>
-      <div class="cert-card"><div class="cert-mark">Go</div><div><div class="cert-name">Google AI Essentials</div><div class="cert-issuer">Google (Coursera)</div></div></div>
-      <div class="cert-card"><div class="cert-mark">An</div><div><div class="cert-name">Claude Code 101</div><div class="cert-issuer">Anthropic</div></div></div>
-      <div class="cert-card"><div class="cert-mark">An</div><div><div class="cert-name">AI Fluency for Students</div><div class="cert-issuer">Anthropic</div></div></div>
-      <div class="cert-card"><div class="cert-mark">Cs</div><div><div class="cert-name">Operating Systems Basics</div><div class="cert-issuer">Cisco Networking Academy</div></div></div>
-      <div class="cert-card"><div class="cert-mark">Cs</div><div><div class="cert-name">Computer Hardware Basics</div><div class="cert-issuer">Cisco Networking Academy</div></div></div>
-      <div class="cert-card"><div class="cert-mark">Ct</div><div><div class="cert-name">Entrepreneurship &amp; Small Business (ESB)</div><div class="cert-issuer">Certiport</div></div></div>
-      <div class="cert-card"><div class="cert-mark">Ad</div><div><div class="cert-name">Adobe Certified Professional — Photoshop</div><div class="cert-issuer">Adobe</div></div></div>
-    </div>
-  </div>
+<div class="wrap">
+<div class="eyebrow">Certifications</div>
+<h2 class="section-title reveal">Achievements &amp; Certifications</h2>
+<p class="section-sub reveal">Credentials earned alongside the day job and the degree.</p>
+<div class="cert-grid reveal">
+<div class="cert-card"><div class="cert-mark">Go</div><div><div class="cert-name">Google AI Professional Certificate</div><div class="cert-issuer">Google (Coursera)</div></div></div>
+<div class="cert-card"><div class="cert-mark">Go</div><div><div class="cert-name">Google AI Essentials</div><div class="cert-issuer">Google (Coursera)</div></div></div>
+<div class="cert-card"><div class="cert-mark">An</div><div><div class="cert-name">Claude Code 101</div><div class="cert-issuer">Anthropic</div></div></div>
+<div class="cert-card"><div class="cert-mark">An</div><div><div class="cert-name">AI Fluency for Students</div><div class="cert-issuer">Anthropic</div></div></div>
+<div class="cert-card"><div class="cert-mark">Cs</div><div><div class="cert-name">Operating Systems Basics</div><div class="cert-issuer">Cisco Networking Academy</div></div></div>
+<div class="cert-card"><div class="cert-mark">Cs</div><div><div class="cert-name">Computer Hardware Basics</div><div class="cert-issuer">Cisco Networking Academy</div></div></div>
+<div class="cert-card"><div class="cert-mark">Ct</div><div><div class="cert-name">Entrepreneurship &amp; Small Business (ESB)</div><div class="cert-issuer">Certiport</div></div></div>
+<div class="cert-card"><div class="cert-mark">Ad</div><div><div class="cert-name">Adobe Certified Professional — Photoshop</div><div class="cert-issuer">Adobe</div></div></div>
+</div>
+</div>
 </section>
 
 <section id="beyond">
-  <div class="wrap">
-    <div class="eyebrow">Beyond the Desk</div>
-    <h2 class="section-title reveal">Leadership &amp; Community</h2>
-    <p class="section-sub reveal">The roles I take on when nobody's assigning the ticket.</p>
-    <div class="beyond-grid reveal">
-      <div class="beyond-card">
-        <div class="beyond-org">Raindrop of Dallas</div>
-        <div class="beyond-role">Volunteer</div>
-        <p>5+ hours a month for 5+ years at a Turkish community center — organizing 20+ cultural events and educational stands.</p>
-        <p>Mentored 30+ middle schoolers through book clubs and cultural activities, helping them connect with their roots and identity.</p>
-        <span class="beyond-date">June 2021 – Present</span>
-      </div>
-      <div class="beyond-card">
-        <div class="beyond-org">Community Soccer Team</div>
-        <div class="beyond-role">Organizer</div>
-        <p>Recruited and managed 15+ players in Allen, TX — handling scheduling, field logistics, and equipment coordination.</p>
-        <span class="beyond-date">June 2023 – Present</span>
-      </div>
-      <div class="beyond-card">
-        <div class="beyond-org">Licensed Official</div>
-        <div class="beyond-role">Soccer Referee</div>
-        <p>Applied decisive, rules-based judgment under real-time pressure while upholding fairness across every match.</p>
-        <span class="beyond-date">June 2022 – Present</span>
-      </div>
-    </div>
-  </div>
+<div class="wrap">
+<div class="eyebrow">Beyond the Desk</div>
+<h2 class="section-title reveal">Leadership &amp; Community</h2>
+<p class="section-sub reveal">The roles I take on when nobody's assigning the ticket.</p>
+<div class="beyond-grid reveal">
+<div class="beyond-card">
+<div class="beyond-org">Raindrop of Dallas</div>
+<div class="beyond-role">Volunteer</div>
+<p>5+ hours a month for 5+ years at a Turkish community center — organizing 20+ cultural events and educational stands.</p>
+<p>Mentored 30+ middle schoolers through book clubs and cultural activities, helping them connect with their roots and identity.</p>
+<span class="beyond-date">June 2021 – Present</span>
+</div>
+<div class="beyond-card">
+<div class="beyond-org">Community Soccer Team</div>
+<div class="beyond-role">Organizer</div>
+<p>Recruited and managed 15+ players in Allen, TX — handling scheduling, field logistics, and equipment coordination.</p>
+<span class="beyond-date">June 2023 – Present</span>
+</div>
+<div class="beyond-card">
+<div class="beyond-org">Licensed Official</div>
+<div class="beyond-role">Soccer Referee</div>
+<p>Applied decisive, rules-based judgment under real-time pressure while upholding fairness across every match.</p>
+<span class="beyond-date">June 2022 – Present</span>
+</div>
+</div>
+</div>
 </section>
 
 <section id="contact" class="contact-section">
-  <div class="wrap narrow" style="margin:0 auto;">
-    <div class="eyebrow" style="justify-content:center;">Contact</div>
-    <h2 class="section-title reveal">Let's Connect</h2>
-    <p class="section-sub reveal">Open to IT and cybersecurity opportunities — internships, entry-level roles, or just a conversation about getting into the field.</p>
-    <div class="contact-methods reveal">
-      <a class="contact-card" href="mailto:selimjohngorgulu@gmail.com">
-        <div class="contact-label">Email</div>
-        <div class="contact-value">selimjohngorgulu@gmail.com</div>
-      </a>
-      <a class="contact-card" href="tel:+14696641456">
-        <div class="contact-label">Phone</div>
-        <div class="contact-value">469-664-1456</div>
-      </a>
-      <a class="contact-card" href="https://linkedin.com/in/selimjohn" target="_blank" rel="noopener">
-        <div class="contact-label">LinkedIn</div>
-        <div class="contact-value">linkedin.com/in/selimjohn</div>
-      </a>
-      <div class="contact-card" style="cursor:default;">
-        <div class="contact-label">Location</div>
-        <div class="contact-value">Allen, TX</div>
-      </div>
-    </div>
-  </div>
+<div class="wrap" style="margin:0 auto;">
+<div class="eyebrow" style="justify-content:center;">Contact</div>
+<h2 class="section-title reveal">Let's Connect</h2>
+<p class="section-sub reveal">Open to IT and cybersecurity opportunities — internships, entry-level roles, or just a conversation about getting into the field.</p>
+<div class="contact-layout reveal">
+<div class="contact-info">
+<p>I'm always open to discussing IT support, cybersecurity challenges, or new opportunities. Feel free to reach out.</p>
+<a class="contact-row" href="mailto:selimjohngorgulu@gmail.com">
+<span class="contact-icon">@</span>
+<span>selimjohngorgulu@gmail.com</span>
+</a>
+<a class="contact-row" href="tel:+14696641456">
+<span class="contact-icon">Ph</span>
+<span>469-664-1456</span>
+</a>
+<a class="contact-row" href="https://linkedin.com/in/selimjohn" target="_blank" rel="noopener">
+<span class="contact-icon">in</span>
+<span>linkedin.com/in/selimjohn</span>
+</a>
+</div>
+<form class="contact-form" onsubmit="alert('Thanks for reaching out! This form isn\'t connected to an inbox yet — please email selimjohngorgulu@gmail.com directly for now.'); return false;">
+<input type="text" placeholder="Your Name" required>
+<input type="email" placeholder="Your Email" required>
+<textarea placeholder="Your Message" rows="5" required></textarea>
+<button type="submit" class="btn btn-primary">Send Message</button>
+</form>
+</div>
+</div>
 </section>
 
 <footer>
-  <div class="footer-tag">Selimcan Gorgulu · IT Support &amp; Cybersecurity</div>
-  <div class="footer-copy">© 2026 Selimcan Gorgulu</div>
+<div class="footer-tag">Selimcan Gorgulu · IT Support &amp; Cybersecurity</div>
+<div class="footer-copy">© 2026 Selimcan Gorgulu</div>
 </footer>
 
 <script>
 (function(){
-  // scroll reveal
-  var els = document.querySelectorAll('.reveal');
-  if('IntersectionObserver' in window){
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
-      });
-    }, {threshold:0.12});
-    els.forEach(function(el){ io.observe(el); });
-  } else {
-    els.forEach(function(el){ el.classList.add('in'); });
-  }
+// scroll reveal
+var els = document.querySelectorAll('.reveal');
+if('IntersectionObserver' in window){
+var io = new IntersectionObserver(function(entries){
+entries.forEach(function(e){
+if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+});
+}, {threshold:0.12});
+els.forEach(function(el){ io.observe(el); });
+} else {
+els.forEach(function(el){ el.classList.add('in'); });
+}
 
-  // active nav link on scroll
-  var sections = document.querySelectorAll('section[id]');
-  var navLinks = document.querySelectorAll('.nav-links a');
-  function onScroll(){
-    var pos = window.scrollY + 140;
-    var current = '';
-    sections.forEach(function(s){
-      if(pos >= s.offsetTop) current = s.id;
-    });
-    navLinks.forEach(function(a){
-      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
-    });
-  }
-  window.addEventListener('scroll', onScroll, {passive:true});
-  onScroll();
+// active nav link on scroll
+var sections = document.querySelectorAll('section[id]');
+var navLinks = document.querySelectorAll('.nav-links a');
+function onScroll(){
+var pos = window.scrollY + 140;
+var current = '';
+sections.forEach(function(s){
+if(pos >= s.offsetTop) current = s.id;
+});
+navLinks.forEach(function(a){
+a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+});
+}
+window.addEventListener('scroll', onScroll, {passive:true});
+onScroll();
 
-  // subtle network canvas in hero
-  var canvas = document.getElementById('netCanvas');
-  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(canvas && canvas.getContext){
-    var ctx = canvas.getContext('2d');
-    var dpr = Math.min(window.devicePixelRatio || 1, 2);
-    var w, h, nodes = [];
-    var NODE_COUNT = 46;
+// subtle network canvas in hero
+var canvas = document.getElementById('netCanvas');
+var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(canvas && canvas.getContext){
+var ctx = canvas.getContext('2d');
+var dpr = Math.min(window.devicePixelRatio || 1, 2);
+var w, h, nodes = [];
+var NODE_COUNT = 46;
 
-    function resize(){
-      var rect = canvas.parentElement.getBoundingClientRect();
-      w = rect.width; h = rect.height;
-      canvas.width = w * dpr; canvas.height = h * dpr;
-      canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
-      ctx.setTransform(dpr,0,0,dpr,0,0);
-    }
-    function init(){
-      nodes = [];
-      for(var i=0;i<NODE_COUNT;i++){
-        nodes.push({
-          x: Math.random()*w, y: Math.random()*h,
-          vx: (Math.random()-0.5)*0.12, vy:(Math.random()-0.5)*0.12
-        });
-      }
-    }
-    function step(){
-      ctx.clearRect(0,0,w,h);
-      for(var i=0;i<nodes.length;i++){
-        var n = nodes[i];
-        if(!reduceMotion){ n.x += n.vx; n.y += n.vy; }
-        if(n.x < 0 || n.x > w) n.vx *= -1;
-        if(n.y < 0 || n.y > h) n.vy *= -1;
-      }
-      for(var i=0;i<nodes.length;i++){
-        for(var j=i+1;j<nodes.length;j++){
-          var a = nodes[i], b = nodes[j];
-          var dx = a.x-b.x, dy = a.y-b.y;
-          var dist = Math.sqrt(dx*dx+dy*dy);
-          if(dist < 140){
-            ctx.strokeStyle = 'rgba(79,179,160,' + (0.18*(1-dist/140)) + ')';
-            ctx.lineWidth = 1;
-            ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
-          }
-        }
-      }
-      for(var i=0;i<nodes.length;i++){
-        ctx.fillStyle = 'rgba(217,145,73,0.55)';
-        ctx.beginPath(); ctx.arc(nodes[i].x, nodes[i].y, 1.6, 0, Math.PI*2); ctx.fill();
-      }
-      if(!reduceMotion){ requestAnimationFrame(step); }
-    }
-    resize(); init(); step();
-    window.addEventListener('resize', function(){ resize(); init(); });
-  }
+function resize(){
+var rect = canvas.parentElement.getBoundingClientRect();
+w = rect.width; h = rect.height;
+canvas.width = w * dpr; canvas.height = h * dpr;
+canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+ctx.setTransform(dpr,0,0,dpr,0,0);
+}
+function init(){
+nodes = [];
+for(var i=0;i<NODE_COUNT;i++){
+nodes.push({
+x: Math.random()*w, y: Math.random()*h,
+vx: (Math.random()-0.5)*0.12, vy:(Math.random()-0.5)*0.12
+});
+}
+}
+function step(){
+ctx.clearRect(0,0,w,h);
+for(var i=0;i<nodes.length;i++){
+var n = nodes[i];
+if(!reduceMotion){ n.x += n.vx; n.y += n.vy; }
+if(n.x < 0 || n.x > w) n.vx *= -1;
+if(n.y < 0 || n.y > h) n.vy *= -1;
+}
+for(var i=0;i<nodes.length;i++){
+for(var j=i+1;j<nodes.length;j++){
+var a = nodes[i], b = nodes[j];
+var dx = a.x-b.x, dy = a.y-b.y;
+var dist = Math.sqrt(dx*dx+dy*dy);
+if(dist < 140){
+ctx.strokeStyle = 'rgba(79,179,160,' + (0.18*(1-dist/140)) + ')';
+ctx.lineWidth = 1;
+ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
+}
+}
+}
+for(var i=0;i<nodes.length;i++){
+ctx.fillStyle = 'rgba(217,145,73,0.55)';
+ctx.beginPath(); ctx.arc(nodes[i].x, nodes[i].y, 1.6, 0, Math.PI*2); ctx.fill();
+}
+if(!reduceMotion){ requestAnimationFrame(step); }
+}
+resize(); init(); step();
+window.addEventListener('resize', function(){ resize(); init(); });
+}
 })();
 </script>
